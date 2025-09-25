@@ -1,8 +1,15 @@
-# Editor/CMakeLists.txt
-file(GLOB_RECURSE EDITOR_SRC CONFIGURE_DEPENDS src/*.cpp src/*.h)
+add_executable(Editor WIN32 main.cpp EditorApp.cpp EditorApp.h)
 
-add_executable(Editor ${EDITOR_SRC})
+# Link Editor and SFML
+target_link_libraries(Editor
+    PRIVATE
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+        SFML::Audio
+        ImGui-SFML::ImGui-SFML
+)
 
-target_link_libraries(Editor PRIVATE Engine imgui)
+target_link_libraries(Editor PRIVATE Engine)
 
-target_include_directories(Editor PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(Editor PRIVATE ${CMAKE_SOURCE_DIR}/Engine)

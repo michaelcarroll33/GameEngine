@@ -1,8 +1,15 @@
-# Game/CMakeLists.txt
-file(GLOB_RECURSE GAME_SRC CONFIGURE_DEPENDS src/*.cpp src/*.h)
+add_executable(Game WIN32 main.cpp GameApp.cpp GameApp.h)
 
-add_executable(Game ${GAME_SRC})
+# Link Engine and SFML
+target_link_libraries(Game
+    PRIVATE
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+        SFML::Audio
+        ImGui-SFML::ImGui-SFML
+)
 
 target_link_libraries(Game PRIVATE Engine)
 
-target_include_directories(Game PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/src)
+target_include_directories(Game PRIVATE ${CMAKE_SOURCE_DIR}/Engine)

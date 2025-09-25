@@ -1,18 +1,20 @@
-# Engine/CMakeLists.txt
-file(GLOB_RECURSE ENGINE_SRC CONFIGURE_DEPENDS
-    Core/*.cpp Core/*.h
-    Platform/*.cpp Platform/*.h
-    Rendering/*.cpp Rendering/*.h
-    ECS/*.cpp ECS/*.h
-    Physics/*.cpp Physics/*.h
-    Audio/*.cpp Audio/*.h
-    Scripting/*.cpp Scripting/*.h
-    Resources/*.cpp Resources/*.h
+cmake_minimum_required(VERSION 3.20)
+project(GameEngine)
+
+# Engine library
+add_library(Engine
+    "Engine.cpp"
+    "Engine.h"
+ "Application.cpp" "Application.h" "Logger.cpp" "Logger.h" "Timer.cpp" "Timer.h" "EventSystem.h" "EventSystem.cpp" "Event.cpp" "Event.h")
+
+target_link_libraries(Engine
+    PRIVATE
+        SFML::Graphics
+        SFML::Window
+        SFML::System
+        SFML::Audio
 )
 
-add_library(Engine STATIC ${ENGINE_SRC})
-
-# Link external dependencies (example: spdlog, glfw, glm, etc.)
-target_link_libraries(Engine PUBLIC spdlog::spdlog glfw glm)
+target_link_libraries(Engine PUBLIC ${CMAKE_SOURCE_DIR}/Engine)
 
 target_include_directories(Engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
